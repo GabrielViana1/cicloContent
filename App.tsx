@@ -733,15 +733,33 @@ const KanbanView: React.FC<{
   };
 
   const handleScroll = () => {
-    if (boardRef.current) {
-      const scrollLeft = boardRef.current.scrollLeft;
-      const width = boardRef.current.offsetWidth;
-      // Use round to find closest column
-      const index = Math.round(scrollLeft / width);
-      const statuses = Object.values(ContentStatus);
-      if (statuses[index] && statuses[index] !== activeStatus) {
-        setActiveStatus(statuses[index]);
+    if (!boardRef.current) return;
+    
+    const container = boardRef.current;
+    // Ponto central do container visível
+    const containerCenter = container.scrollLeft + (container.clientWidth / 2);
+    
+    let closestStatus = activeStatus;
+    let minDistance = Infinity;
+
+    // Encontrar a coluna que está mais próxima do centro
+    Array.from(container.children).forEach((child, index) => {
+      const htmlChild = child as HTMLElement;
+      // Ponto central da coluna
+      const childCenter = htmlChild.offsetLeft + (htmlChild.clientWidth / 2);
+      const distance = Math.abs(containerCenter - childCenter);
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        const statuses = Object.values(ContentStatus);
+        if (statuses[index]) {
+           closestStatus = statuses[index];
+        }
       }
+    });
+
+    if (closestStatus !== activeStatus) {
+      setActiveStatus(closestStatus);
     }
   };
 
@@ -768,7 +786,7 @@ const KanbanView: React.FC<{
         onMouseLeave={handleTabsMouseLeave}
         onMouseUp={handleTabsMouseUp}
         onMouseMove={handleTabsMouseMove}
-        className="md:hidden flex gap-2 overflow-x-auto pb-2 mb-2 no-scrollbar px-2 cursor-grab active:cursor-grabbing select-none"
+        className="md:hidden flex gap-2 overflow-x-auto pb-2 mb-2 no-scrollbar px-1 items-center cursor-grab active:cursor-grabbing select-none"
       >
         {Object.values(ContentStatus).map(status => (
           <button
@@ -777,7 +795,7 @@ const KanbanView: React.FC<{
             onDragOver={(e) => handleDragOverColumn(e, status)}
             onDrop={(e) => handleDropOnColumn(e, status)}
             className={`
-              flex flex-shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap text-xs font-medium transition-all border
+              flex flex-shrink-0 items-center gap-1.5 px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all border
               ${activeStatus === status 
                 ? 'bg-indigo-600 text-white border-indigo-600' 
                 : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'}
@@ -813,7 +831,7 @@ const KanbanView: React.FC<{
               onDragOver={(e) => handleDragOverColumn(e, status)}
               onDrop={(e) => handleDropOnColumn(e, status)}
               className={`
-                flex-shrink-0 flex-col min-w-full md:min-w-[280px] md:w-[300px] snap-center h-full flex transition-colors rounded-lg
+                flex-shrink-0 flex-col w-[85vw] md:w-[300px] md:min-w-[280px] snap-center h-full flex transition-colors rounded-lg
                 ${isDragOver ? 'bg-indigo-50 ring-2 ring-indigo-300' : ''}
               `}
             >
