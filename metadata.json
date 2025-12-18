@@ -1,8 +1,10 @@
+
 {
-  "name": "Copy of CicloContent AI",
+  "name": "CicloContent AI",
   "description": "Um planejador de conteúdo inteligente alimentado por IA para organizar ideias, roteiros e publicações em ciclos.",
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0"
+    "@supabase/supabase-js": "^2.39.0",
+    "@google/genai": "^1.32.0"
   },
   "requestFramePermissions": []
 }
