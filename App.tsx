@@ -39,7 +39,7 @@ import { useAuth } from './context/AuthContext';
 import { contentService } from './services/contentService';
 
 // Define o caminho da logo. Coloque sua imagem em /public/logo.png ou ajuste a string abaixo.
-const LOGO_SRC = '/logo.png';
+const LOGO_SRC = 'logo.png';
 
 const LogoMark: React.FC<{ size?: 'sm' | 'lg'; alt?: string }> = ({ size = 'sm', alt = 'CicloContent logo' }) => {
   const [isBroken, setIsBroken] = useState(false);
