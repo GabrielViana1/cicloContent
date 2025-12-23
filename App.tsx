@@ -39,7 +39,7 @@ import { useAuth } from './context/AuthContext';
 import { contentService } from './services/contentService';
 
 // Define o caminho da logo. Coloque sua imagem em /public/logo.png ou ajuste a string abaixo.
-const LOGO_SRC = '/public/logo.png';
+const LOGO_SRC = 'https://scontent-gru1-2.cdninstagram.com/v/t51.2885-19/476313876_2305927659781234_1567068422599777714_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-gru1-2.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QHkWbOu_Q8cup5SJ_2IxdpyAn_m6dYd5HukUR-ZMjlMLLNv9eLOhy7-0ip7Vtsg_hg&_nc_ohc=Y74lICW3I-gQ7kNvwEYHpCh&_nc_gid=Qm0cfUF1WmN7RZXpDz880A&edm=APoiHPcBAAAA&ccb=7-5&oh=00_AfnBack3T-LkgFvQ8PzvX-zikHR072GOE_RfRIetFm6tJA&oe=695087FF&_nc_sid=22de04';
 
 const LogoMark: React.FC<{ size?: 'sm' | 'lg'; alt?: string }> = ({ size = 'sm', alt = 'CicloContent logo' }) => {
   const [isBroken, setIsBroken] = useState(false);
