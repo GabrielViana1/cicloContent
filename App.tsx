@@ -46,7 +46,7 @@ const LogoMark: React.FC<{ size?: 'sm' | 'lg'; alt?: string }> = ({ size = 'sm',
   const fallbackSize = size === 'lg' ? 'text-3xl' : 'text-lg';
 
   if (!LOGO_SRC || isBroken) {
-    return <span className={`${fallbackSize} font-bold text-white`}>C</span>;
+    return <span className={`${fallbackSize} font-bold text-white`}>A</span>;
   }
 
   return (
