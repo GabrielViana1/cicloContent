@@ -38,6 +38,27 @@ import { generateContentScript, generateMoreIdeas } from './services/geminiServi
 import { useAuth } from './context/AuthContext';
 import { contentService } from './services/contentService';
 
+// Define o caminho da logo. Coloque sua imagem em /public/logo.png ou ajuste a string abaixo.
+const LOGO_SRC = '/logo.png';
+
+const LogoMark: React.FC<{ size?: 'sm' | 'lg'; alt?: string }> = ({ size = 'sm', alt = 'CicloContent logo' }) => {
+  const [isBroken, setIsBroken] = useState(false);
+  const fallbackSize = size === 'lg' ? 'text-3xl' : 'text-lg';
+
+  if (!LOGO_SRC || isBroken) {
+    return <span className={`${fallbackSize} font-bold text-white`}>C</span>;
+  }
+
+  return (
+    <img
+      src={LOGO_SRC}
+      alt={alt}
+      className="w-full h-full object-contain"
+      onError={() => setIsBroken(true)}
+    />
+  );
+};
+
 // --- Components ---
 
 // 0. Login Screen
@@ -91,7 +112,7 @@ const LoginScreen: React.FC = () => {
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
         <div className="bg-indigo-600 p-8 text-center relative">
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
-             <span className="text-3xl font-bold text-white">C</span>
+             <LogoMark size="lg" />
           </div>
           <h1 className="text-2xl font-bold text-white">CicloContent AI</h1>
           <p className="text-indigo-100 mt-2 text-sm">Organize, crie e publique suas ideias.</p>
@@ -1157,7 +1178,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex justify-between items-center h-full">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
-              C
+              <LogoMark />
             </div>
             <h1 className="text-xl font-bold tracking-tight text-gray-900 hidden sm:block">Ciclo<span className="text-indigo-600">Content</span></h1>
           </div>
